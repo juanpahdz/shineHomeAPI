@@ -6,7 +6,7 @@ application = Flask(__name__)
 application.secret_key = "123askldaskfbbaskdkasgjash0120fd17237ajkhafkas"
 
 #Database Conection
-client = pymongo.MongoClient('mongodb://admin:shine123@cluster0.ymwcw.mongodb.net/')
+client = pymongo.MongoClient("mongodb+srv://admin:shine123@cluster0.ymwcw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.shineApi
 
 @application.route('/')
