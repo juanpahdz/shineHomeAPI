@@ -14,9 +14,12 @@ def init():
     return jsonify({'Status':'Development Server Init'})
 
 # Routes
+from Routes import userRoutes
+from Routes import apartmentRoutes
+
 # import Routes.userRoutes
 # import Routes.apartmentRoutes
 
 # Initialize Debug Server
 if __name__ == "__main__":
-    application.run()
+    application.run(debug=True)
