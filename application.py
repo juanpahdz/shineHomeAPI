@@ -10,8 +10,13 @@ client = pymongo.MongoClient('mongodb://admin:shine123@cluster0.ymwcw.mongodb.ne
 db = client.shineApi
 
 @application.route('/')
-def home():
+def init():
     return jsonify({'Status':'Development Server Init'})
 
+# Routes
+import Routes.userRoutes
+import Routes.apartmentRoutes
+
+# Initialize Debug Server
 if __name__ == "__main__":
     application.run(debug=True)
