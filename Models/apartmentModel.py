@@ -89,6 +89,7 @@ class Apartment:
     def ReadAll(self, user):
         if user:
             apartments = dumps(db.apartments.find({"admin": user} ))
+
             return apartments
 
         else: 
@@ -127,17 +128,18 @@ class Book:
 
         ingreso = request.json['ingreso']
         salida = request.json['salida']
-
         apartment = db.apartments.find_one({"_id": id})
+        userData = db.users.find_one({"_id": user})
+        adminData = db.users.find_one({"_id": apartment["admin"]})
 
         if Apartment().VerifyApartment(id) and Apartment().VerifyUser(user):
             book = {
                 '_id': uuid.uuid4().hex,
                 'ingreso': ingreso,
                 'salida': salida,
-                'adminID': apartment["admin"],
-                'clientID': user,
-                'apartmentID': id
+                'admin': adminData,
+                'client': userData,
+                'apartment': apartment
             }
 
             if db.books.insert_one(book):
@@ -153,9 +155,10 @@ class Book:
         if self.VerifyBooking(id):
             book = db.books.find_one({"_id": id})
 
-            if user == book["clientID"]:
+            if user == book["client"]["_id"]:
                 query = {"_id": id}
                 db.books.delete_one(query)
+                Apartment().Active(id)
                 return jsonify({'status':'La Reserva ' + id + " fue eliminada correctamente"})
 
             return jsonify({'status':"Ups.. Parece que los datos no coinciden"})
@@ -163,9 +166,9 @@ class Book:
         return jsonify({'error':'Ups.. Parece que esta reserva no existe'})
     
     def Get(self, admin):
-        apartments = dumps(db.books.find({"adminID": admin} ))
-        return apartments
+        book = dumps(db.books.find({"admin._id": admin}))
+        return book
     
     def GetMy(self, client):
-        apartments = dumps(db.books.find({"clientID": client} ))
-        return apartments
+        book = dumps(db.books.find({"client._id":client}))
+        return book
