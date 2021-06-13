@@ -19,4 +19,4 @@ import Routes.apartmentRoutes
 
 # Initialize Debug Server
 if __name__ == "__main__":
-    application.run(debug=True)
+    application.run()
