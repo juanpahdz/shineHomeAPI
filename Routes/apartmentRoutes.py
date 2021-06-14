@@ -1,5 +1,5 @@
 from flask import Flask, request, redirect, url_for, jsonify
-from application import application
+from __main__ import application
 from Models.apartmentModel import Apartment
 from Models.apartmentModel import Book
 

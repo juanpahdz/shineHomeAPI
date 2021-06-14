@@ -1,5 +1,5 @@
 from flask import Flask, request, redirect, url_for, jsonify
-from application import application
+from __main__ import application
 from Models.userModel import User
 
 @application.route('/user/login', methods=["POST"])
