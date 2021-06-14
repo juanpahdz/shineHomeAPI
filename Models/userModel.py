@@ -1,7 +1,10 @@
 from flask import Flask, jsonify, request, redirect, url_for, session
 from passlib.hash import pbkdf2_sha256
-from __main__ import db
 import uuid
+import pymongo
+
+client = pymongo.MongoClient("mongodb+srv://admin:shine123@cluster0.ymwcw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+db = client.shineApi
 
 class User:
 

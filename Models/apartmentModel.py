@@ -1,9 +1,12 @@
-from flask import Flask, jsonify, request, redirect, url_for, session
+from flask import Flask, jsonify, request, redirect, url_for, session, Blueprint
 from passlib.hash import pbkdf2_sha256
 from bson.json_util import dumps
-from __main__ import db
 import uuid
 import json
+import pymongo
+
+client = pymongo.MongoClient("mongodb+srv://admin:shine123@cluster0.ymwcw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+db = client.shineApi
 
 class Apartment:
 
